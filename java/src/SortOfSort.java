@@ -1,46 +1,54 @@
 public class SortOfSort {
 
-//    public static void sortTry(int[]arrOne, int n){
-//        int i, key, j;
-//        for (i = 1; i < n; i++)
-//        {
-//            key = arrOne[i];
-//            j = i - 1;
-//
-//        /* Move elements of arrOne[0..i-1], that are
-//        greater than key, to one position ahead
-//        of their current position */
-//            while (j >= 0 && arrOne[j] > key)
-//            {
-//                arrOne[j + 1] = arrOne[j];
-//                j = j - 1;
-//            }
-//            arrOne[j + 1] = key;
-//        }
-//    }
+    public static void sortOfSort(int[] arr) {
+        int n = arr.length - 1;
+        int idx = 0;
+        int beg = 0;
+        int last = 0;
 
-
-
-
-    public static void sortOne(int[] sort) {
-        int n = sort.length;
-
-        for (int i = 0; i < n - 1; i++) {
-
-            int min_index = i;
-            for (int j = i + 1; j < n; j++) {
-                if (sort[j] < sort[min_index]) {
-                    min_index = j;
-
-                    int temp = sort[min_index];
-                    sort[min_index] = sort[i];
-                    sort[i] = temp;
+        int path = 0;
+        //this for loop first goes through all elements
+        for(int i = 0; i < arr.length; i++){
+            for(int k = beg + 1; k < arr.length - last; k++){
+                if(arr[idx] < arr[k]){
+                    idx = k;
                 }
+            }
+            //base case that returns the array if the length is 1 or 0.
+            if(arr.length <= 1){
+                return;
+            }
+
+            //when the path is 2 or 3 this is the 2nd and third largest they are placed in the beggining of the array
+            //again by using helper method
+            if(path == 2 || path == 3){
+                swap(arr, beg, idx);
+                beg++;
+            }
+            //runs this with helper method and swaps the largest to the end when path is 0 and 1
+            //last increases by one to go left one more each time
+            else {
+                swap(arr,n - last, idx);
+                last++;
+            }
+            //index then becomes beg
+            idx = beg;
+            //path increases by one each time
+            path++;
+            //when finally path reaches four, the max in array then becomes 0 repeats the process
+            //in the past else condition with the last still being in the same position
+            if(path == 4){
+                path = 0;
             }
         }
     }
-
-
+    //helper method to swap elements in array
+    public static void swap(int[] array, int a, int b){
+        int temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
+    }
+    //print elements in array
     public static void printArray(int sort[]) {
         int n = sort.length;
         for (int i = 0; i < n; i++) {
@@ -50,8 +58,8 @@ public class SortOfSort {
 
     public static void main(String[] args) {
         SortOfSort arrayRun = new SortOfSort();
-        int arrayOne[] = {12, 54, 78, 90, 20, 40, 10};
-        sortOne(arrayOne);
+        int arrayOne[] = {12, 54, 78, 90, 20, 40, 10, 2};
+        sortOfSort(arrayOne);
         System.out.println("SORTED:");
         printArray(arrayOne);
     }
