@@ -60,7 +60,7 @@ public class SortOfSort {
         SortOfSort arrayRun = new SortOfSort();
         int arrayOne[] = {12, 54, 78, 90, 20, 40, 10, 2};
         sortOfSort(arrayOne);
-        System.out.println("SORTED:");
+        System.out.println("SORT OF SORTED:");
         printArray(arrayOne);
     }
 }
